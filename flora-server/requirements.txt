@@ -1,0 +1,11 @@
+bluepy
+cherrypy
+cherrypy_cors
+config2
+colorlog
+json
+# loguru
+miflora
+pyyaml
+routes
+simplejson

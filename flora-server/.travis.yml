@@ -1,0 +1,87 @@
+language: python
+jobs:
+  include:
+    - name: "Python 3.7 MODE=mod"
+      os: osx
+      osx_image: xcode11.2
+      language: shell       # 'language: python' is an error on Travis CI macOS
+      before_install:
+        - brew install make coreutils
+        - (echo "PY = python3"; echo "PIP = pip3") > Makefile.py-version.include
+        - export MODE=mod
+    - name: "Python 3.7 MODE=app"
+      os: osx
+      osx_image: xcode11.2
+      language: shell       # 'language: python' is an error on Travis CI macOS
+      before_install:
+        - brew install make coreutils
+        - (echo "PY = python3"; echo "PIP = pip3") > Makefile.py-version.include
+        - export MODE=app
+    # - name: "Python 3.8 MODE=mod"
+    #   os: windows
+    #   language: shell       # 'language: python' is an error on Travis CI Windows
+    #   before_install:
+    #     - choco install python --version 3.8.2
+    #     - python -m pip install --upgrade pip
+    #     - choco install make
+    #     - export MODE=app
+    #     - powershell -Command 'Set-ExecutionPolicy -ExecutionPolicy RemoteSigned'
+    #   env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
+    # - name: "Python 3.8 MODE=app"
+    #   os: windows
+    #   language: shell       # 'language: python' is an error on Travis CI Windows
+    #   before_install:
+    #     - choco install python --version 3.8.2
+    #     - python -m pip install --upgrade pip
+    #     - choco install make
+    #     - export MODE=app
+    #     - powershell -Command 'Set-ExecutionPolicy -ExecutionPolicy RemoteSigned'
+    #   env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
+python:
+  # - "2.7"
+  # - "3.4"
+  # - "3.5"    # will not support versions lower than Python 3.6
+  - "3.6"
+  - "3.7"
+  - "3.8"
+  - "3.9-dev"  # 3.9 development branch
+env:
+  - MODE=app
+  - MODE=mod
+before_script:
+  # - make --version
+  # - python --version
+  - echo $MODE
+  - if [[ "$MODE" = "" ]]; then make init PROJECT=flora;
+    else make init MODE=$MODE PROJECT=flora;
+    fi
+  - make configure
+scripts:
+  - make test
+  - if [[ "$MODE" == "app" ]];
+    then if [[ $TRAVIS_OS_NAME == 'windows' ]];
+    then ./env/Scripts/flora.exe;
+    else ./env/bin/flora;
+    fi;
+    fi
+  - if [[ $TRAVIS_OS_NAME == 'windows' ]];
+    then ./env/Scripts/pre-commit.exe run --all-files;
+    else ./env/bin/pre-commit run --all-files || ./env/bin/pre-commit run --all-files;
+    fi
+# after_script:
+  - printenv
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.7' && $TRAVIS_OS_NAME == 'linux' && $MODE == 'mod' ]];
+    then make docs;
+    sonar-scanner;
+    fi
+notifications:
+  email:
+    recipients:
+      - dragos.cirjan@gmail.com
+    on_success: never
+    on_failure: always
+addons:
+  sonarcloud:
+    organization: "templ-project"
+    token:
+      secure: "S7YWj9EuSUXz/qlctqN1X5l/rcjVYWVNSrhji0MbHwDFuYzdIB+ZpUMogDelnq7LoXtGwvuvZQJTt0/0lLOYMvJm0DMh6Qt5NrG2w6CgHDzAW8cbm9qiCowzrmVI5FDMc7FB5sKn7pbhVRnCqQC46x7kDQiIWcU1aNlZUiSSaNWYVAP8jItDXPgj9lO35B+7kkMtPhOgv+ycTMZTa917GRCS7XxEhynXGFAPBmwXf5jJJiIqBEv30hLIGKe+Bwadwtp1I6Y0/tqPXD09ZHn2Gsl8AyV8xjM74Zt1NmvM1hFrNWoJhhVJa2F7l2qkMbNilvdsL9ETP4p/T+uuMz6tDvlAU0L81ZwKzNnzVob0f3IxfgPwj0p/MjtgURY0VbwqMSxvif2EkcVrUvv7rN0WmfgWNSaGt8gCpR1bP5WRfyvzdmHjDa+Gq1nmaEPkJmN4eTpthS42kgXQnuLIagzzEpuCzTg6bVr/g8u4YLrjkI6QaCtBQsftpy6UPrCtClGafk9E/MK/381TfMGCPP/hjVzhkL6CDYdjM8EpsPRlUeRslhCD9BOy3951Cmbc5mAy5YIzUYmMDdMMOOCSzprgGQRp5pVcQ+1iGVqzNHYBcdyLVn/hhHxRZ8XSgwaT3h/+OX2FHxpg0Zb0t4hVQMuJKK3V0kcAzwPyFou6JKOptrw="
