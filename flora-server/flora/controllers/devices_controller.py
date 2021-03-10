@@ -2,8 +2,6 @@ from config2.config import config
 import cherrypy
 from flora.core import controller_registry, register_get_route, DefaultController
 
-config.get()
-
 class DevicesController(DefaultController):
 
   @cherrypy.tools.json_out()

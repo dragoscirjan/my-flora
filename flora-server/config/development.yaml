@@ -1,7 +1,6 @@
 ---
 plants:
-  - label: 'Camelia 1'
-    species: 'Camellia Japonica'
+  - species: 'Camellia Japonica'
     tag: 'Camellia_Japonica'
     moisture: [15, 60]
     fertility: [350, 2000]
@@ -9,4 +8,5 @@ plants:
     temperature: [6, 25]
 devices:
   - address: 'C4:7C:8D:6B:C0:0E'
+    label: 'Camelia 1'
     tag: 'Camellia_Japonica'

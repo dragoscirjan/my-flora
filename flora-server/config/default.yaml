@@ -1,3 +1,12 @@
 ---
 plants: []
 devices: []
+stats:
+  statsd:
+    use: true
+    config:
+      host: localhost
+      port: 8125
+      prefix: myflorametrics
+  prometheus:
+    use: true

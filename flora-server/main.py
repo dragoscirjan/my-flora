@@ -1,10 +1,11 @@
 """CLI main runner"""
 
-# from flora import dispatcher
+from config2.config import config
 from flora.core.routing import build_dispatcher
 import cherrypy
 import json
 
+config.get()
 
 def jsonify_error(status, message, traceback, version): # pylint: disable=unused-argument
   """JSONify all CherryPy error responses (created by raising the

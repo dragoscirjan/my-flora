@@ -9,6 +9,8 @@ RUN_ARGS =
 run: ## Run Application (from source code) (usabled only in app mode)
 	$(PY) main.py $(RUN_ARGS)
 
+run-dev: ## Run Application in dev mode
+	ENV=development make run
 
 uninstall: ## Uninstall Application
 	@echo 'Uninstall Instructions'

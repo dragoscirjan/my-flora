@@ -3,9 +3,10 @@ cherrypy
 cherrypy_cors
 config2
 colorlog
-json
 # loguru
 miflora
+prometheus-client
 pyyaml
 routes
 simplejson
+statsd

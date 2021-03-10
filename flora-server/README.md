@@ -1,3 +1,5 @@
+Code sample: https://github.com/EmmEff/cherrypy-rest/blob/master/server.py
+
 # Templ Python
 
 [![HitCount](http://hits.dwyl.com/templ-project/python.svg)](http://hits.dwyl.com/templ-project/python)
@@ -217,45 +219,7 @@ This can be done using [AlanWalk.markdown-toc](https://marketplace.visualstudio.
 which is also included in 
 [itmcdev.generic-extension-pack](https://marketplace.visualstudio.com/items?itemName=itmcdev.generic-extension-pack) extension pack.
 -->
-<!-- TOC -->
-
-- [Templ Python](#templ-python)
-  - [Getting Started](#getting-started)
-    - [Prereqiusites / Dependencies](#prereqiusites--dependencies)
-        - [For Windows](#for-windows)
-        - [For Linux/Unix/OSX](#for-linuxunixosx)
-      - [Known Issues / Troubleshooting](#known-issues--troubleshooting)
-    - [Installation](#installation)
-      - [Python version](#python-version)
-    - [Development](#development)
-      - [Requirements](#requirements)
-    - [Testing](#testing)
-      - [Single Tests](#single-tests)
-    - [Deployment](#deployment)
-  - [Authors](#authors)
-  - [Issues / Support](#issues--support)
-  - [License](#license)
-- [Project Title](#project-title)
-  - [Getting Started](#getting-started-1)
-    - [Prereqiusites / Dependencies](#prereqiusites--dependencies-1)
-      - [For Windows](#for-windows-1)
-      - [For Linux](#for-linux)
-      - [Known Issues / Troubleshooting](#known-issues--troubleshooting-1)
-    - [Installation](#installation-1)
-      - [Say what the step will be](#say-what-the-step-will-be)
-      - [And repeat](#and-repeat)
-    - [Development](#development-1)
-    - [Testing](#testing-1)
-      - [Break down into (at least) unit tests](#break-down-into-at-least-unit-tests)
-      - [and end to end tests](#and-end-to-end-tests)
-      - [And coding style tests](#and-coding-style-tests)
-    - [Deployment](#deployment-1)
-  - [Authors](#authors-1)
-  - [Issues / Support](#issues--support-1)
-  - [License](#license-1)
-  - [Changelog](#changelog)
-
-<!-- /TOC -->
+<!-- TOC -->autoauto- [Templ Python](#templ-python)auto    - [Getting Started](#getting-started)auto        - [Prereqiusites / Dependencies](#prereqiusites--dependencies)auto                - [For Windows](#for-windows)auto                - [For Linux/Unix/OSX](#for-linuxunixosx)auto            - [Known Issues / Troubleshooting](#known-issues--troubleshooting)auto        - [Installation](#installation)auto            - [Python version](#python-version)auto        - [Development](#development)auto            - [Requirements](#requirements)auto        - [Testing](#testing)auto            - [Single Tests](#single-tests)auto        - [Deployment](#deployment)auto    - [Authors](#authors)auto    - [Issues / Support](#issues--support)auto    - [License](#license)auto- [Project Title](#project-title)auto    - [Getting Started](#getting-started-1)auto        - [Prereqiusites / Dependencies](#prereqiusites--dependencies-1)auto            - [For Windows](#for-windows-1)auto            - [For Linux](#for-linux)auto            - [Known Issues / Troubleshooting](#known-issues--troubleshooting-1)auto        - [Installation](#installation-1)auto            - [Say what the step will be](#say-what-the-step-will-be)auto            - [And repeat](#and-repeat)auto        - [Development](#development-1)auto        - [Testing](#testing-1)auto            - [Break down into (at least) unit tests](#break-down-into-at-least-unit-tests)auto            - [and end to end tests](#and-end-to-end-tests)auto            - [And coding style tests](#and-coding-style-tests)auto        - [Deployment](#deployment-1)auto    - [Authors](#authors-1)auto    - [Issues / Support](#issues--support-1)auto    - [License](#license-1)auto    - [Changelog](#changelog)autoauto<!-- /TOC -->
 
 ## Getting Started
 
