@@ -1,4 +1,5 @@
 bluepy
+btlewrap
 cherrypy
 cherrypy_cors
 config2
@@ -6,7 +7,9 @@ colorlog
 # loguru
 miflora
 prometheus-client
+pygatt
 pyyaml
 routes
 simplejson
+# sqlite3
 statsd

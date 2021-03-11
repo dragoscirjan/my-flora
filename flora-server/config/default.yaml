@@ -10,3 +10,9 @@ stats:
       prefix: myflorametrics
   prometheus:
     use: true
+db:
+  adapter: sqlite
+  config:
+    database: ./my_flora.sqlite
+device_poller:
+  adapter: 'bluepy'

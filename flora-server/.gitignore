@@ -114,3 +114,6 @@ venv.bak/
 
 # templ
 Makefile.py-version.include
+
+# db
+/my_flora.sqlite

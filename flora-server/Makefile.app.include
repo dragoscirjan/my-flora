@@ -10,6 +10,7 @@ run: ## Run Application (from source code) (usabled only in app mode)
 	$(PY) main.py $(RUN_ARGS)
 
 run-dev: ## Run Application in dev mode
+	cp -f my_flora.template.sqlite my_flora.sqlite
 	ENV=development make run
 
 uninstall: ## Uninstall Application
