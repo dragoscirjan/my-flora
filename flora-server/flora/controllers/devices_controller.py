@@ -1,8 +1,7 @@
-
 import cherrypy
 from config2.config import config
 from flora.core import controller_registry, register_get_route, register_put_route, DefaultController
-from flora.adapters import DevicePoller, DB
+from flora.di import container
 
 class DevicesController(DefaultController):
 
@@ -30,12 +29,11 @@ class DevicesController(DefaultController):
                       action='put_device_details', controller='DevicesController')
   def put_device_details(self, address: str) -> dict:
     device = self.get_device_details(address=address)
+    device['newHistoryItems'] = []
 
-    history_item = DevicePoller(device['address']).get_history_item(device_tag=device['tag'])
-
-    DB.get_adapter().add_history_item(history_item)
-
-    device['new_history_item'] = history_item.__dict__
+    history_items = container.device_poller_wrapper(tag=device['tag'], poller__mac=device['address']).get_history_items()
+    for item in history_items:
+      device['newHistoryItems'].append(item.__dict__)
 
     return device
 

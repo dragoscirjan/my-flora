@@ -4,6 +4,7 @@ cherrypy
 cherrypy_cors
 config2
 colorlog
+dependency-injector
 # loguru
 miflora
 prometheus-client

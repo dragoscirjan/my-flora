@@ -14,5 +14,8 @@ db:
   adapter: sqlite
   config:
     database: ./my_flora.sqlite
-device_poller:
-  adapter: 'bluepy'
+device:
+  poller:
+    adapter: 'bluepy'
+    history:
+      clear: false

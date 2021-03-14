@@ -2,6 +2,7 @@
 
 from config2.config import config
 from flora.core.routing import build_dispatcher
+from flora import container
 import cherrypy
 import json
 
@@ -27,8 +28,13 @@ def jsonify_error(status, message, traceback, version): # pylint: disable=unused
 
 def main():
   """main runner"""
+  container.config.from_dict({
+    'device': {
+      'adapter': config.device.poller.adapter
+    }
+  })
 
-  config = {
+  cp_config = {
       '/': {
           'request.dispatch': build_dispatcher(),
           # 'error_page.default': jsonify_error,
@@ -39,7 +45,7 @@ def main():
       },
   }
 
-  cherrypy.tree.mount(root=None, config=config)
+  cherrypy.tree.mount(root=None, config=cp_config)
 
   cherrypy.config.update({
       # 'server.socket_host': '0.0.0.0',

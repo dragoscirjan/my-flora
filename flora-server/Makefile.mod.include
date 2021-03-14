@@ -30,7 +30,8 @@ CLEAN_FULL=
 clean: clean-$(SHELL_IS) ## Clean all dist/temp folders
 
 clean-bash:
-	rm -rf .coverage .pytest_cache coverage-report dist env
+	find ./$(PROJECT) -type d -name "__pycache__" -exec rm -rf {} \;
+	rm -rf .coverage .pytest_cache coverage-report dist $(PROJECT).egg-info
 
 clean-powershell:
 	$(POWERSHELL) -File ./.scripts/make.ps1 -Action rmdir -Path ./.coverage

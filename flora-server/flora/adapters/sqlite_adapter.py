@@ -34,4 +34,5 @@ INSERT INTO "history_items" (
   "{firmware_version}"
 )
 '''.format(item.__dict__)
-      conn.execute(query)
+      print(query)
+      # conn.execute(query)

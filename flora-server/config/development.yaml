@@ -1,15 +1,21 @@
 ---
 plants:
+  - species: 'Aeschynanthus Lobbianus'
+    tag: 'Aeschynanthus_Lobbianus'
+    moisture: [ 15, 60 ]
+    fertility: [ 350, 2000 ]
+    sunlight: [ 2000, 20000 ]
+    temperature: [ 6, 25 ]
   - species: 'Camellia Japonica'
     tag: 'Camellia_Japonica'
-    moisture: [15, 60]
-    fertility: [350, 2000]
-    sunlight: [2000, 25000]
-    temperature: [6, 25]
+    moisture: [ 15, 60 ]
+    fertility: [ 350, 2000 ]
+    sunlight: [ 2000, 25000 ]
+    temperature: [ 10, 32 ]
 devices:
   - address: 'C4:7C:8D:6B:C0:0E'
     label: 'Camelia 1'
     tag: 'Camellia_Japonica'
   - address: 'C4:7C:8D:6B:BF:F7'
     label: 'Camelia 2'
-    tag: 'Camellia_Japonica'
+    tag: 'Aeschynanthus_Lobbianus'
