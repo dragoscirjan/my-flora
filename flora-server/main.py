@@ -1,12 +1,8 @@
 """CLI main runner"""
-
-from config2.config import config
-from flora.core.routing import build_dispatcher
-from flora import container
+from flora.di import container
 import cherrypy
 import json
 
-config.get()
 
 def jsonify_error(status, message, traceback, version): # pylint: disable=unused-argument
   """JSONify all CherryPy error responses (created by raising the
@@ -28,15 +24,9 @@ def jsonify_error(status, message, traceback, version): # pylint: disable=unused
 
 def main():
   """main runner"""
-  container.config.from_dict({
-    'device': {
-      'adapter': config.device.poller.adapter
-    }
-  })
-
   cp_config = {
       '/': {
-          'request.dispatch': build_dispatcher(),
+          'request.dispatch': container.route_dispatcher().build(),
           # 'error_page.default': jsonify_error,
           'cors.expose.on': True,
           # 'tools.auth_basic.on': True,

@@ -1,6 +1,8 @@
+import abc
 
 
-class DefaultController:
+class Base(abc.ABC):
   pass
+
 
 controller_registry: dict = {}

@@ -1,6 +1,8 @@
 """Testing flora.di"""
 
+import sqlite3
 import unittest
+from flora.db import Base, Sqlite
 from flora.di import Container, DevicePollerAdapters
 from miflora.miflora_poller import MiFloraPoller
 from btlewrap import bluepy, pygatt
@@ -12,14 +14,19 @@ class DITestCase(unittest.TestCase):
   def setUp(self) -> None:
     self.container = Container()
     self.container.config.from_dict({
-      'device': {
-        'adapter': DevicePollerAdapters.bluepy
+      'db': {
+        'adapter': Sqlite,
+        'config': {
+          'database': 'my_flora.sqlite'
+        }
+      },
+      'miflora': {
+        'poller': {
+          'adapter': bluepy.BluepyBackend
+        }
       }
     })
 
-  def test_miflora_device_poller_backend(self):
-    """Testing `miflora_device_poller_backend` to return the configured bt backend"""
-    self.assertEqual(self.container.miflora_device_poller_backend(), bluepy.BluepyBackend)
 
   def test_miflora_device_poller(self):
     """Testing `miflora_device_poller` to be initialized"""
@@ -51,3 +58,10 @@ class DITestCase(unittest.TestCase):
     self.assertEqual(poller._tag, 'tag')
     self.assertEqual(poller._poller._mac, 'address')
     self.assertIsInstance(poller._poller._bt_interface._backend, bluepy.BluepyBackend)
+
+  def test_db_adapter(self):
+    """Testing `miflora_device_poller` to be initialized"""
+    db_adapter = self.container.db_adapter()
+    # self.assertIsInstance(db_adapter, Base)
+    # self.assertIsInstance(db_adapter._conn, sqlite3.Connection)
+    self.assertEqual(True, True)

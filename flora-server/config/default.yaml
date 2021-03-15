@@ -1,6 +1,13 @@
 ---
-plants: []
+db:
+  adapter: sqlite
+  config:
+    dsn: ./my_flora.sqlite
 devices: []
+miflora:
+  poller:
+    adapter: bluepy
+plants: []
 stats:
   statsd:
     use: true
@@ -10,12 +17,3 @@ stats:
       prefix: myflorametrics
   prometheus:
     use: true
-db:
-  adapter: sqlite
-  config:
-    database: ./my_flora.sqlite
-device:
-  poller:
-    adapter: 'bluepy'
-    history:
-      clear: false

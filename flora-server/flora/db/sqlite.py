@@ -1,17 +1,15 @@
 import sqlite3
+from flora.db import Base
 from flora.models import HistoryItem
 
-class SqliteAdapter(object):
 
-  def __init__(self, **kwargs):
-    if not 'database' in kwargs:
-      raise ErrorError('Please configure database path.')
-    self.database = kwargs.get('database')
+class Sqlite(Base):
 
+  def __init__(self, config: dict = {}):
+    self._conn = sqlite3.connect(**config)
 
   def add_history_item(self, item: HistoryItem) -> None:
-    with sqlite3.connect('example.db') as conn:
-      query = '''
+    query = '''
 INSERT INTO "history_items" (
   "plant_tag",
   "device_time",
@@ -34,5 +32,5 @@ INSERT INTO "history_items" (
   "{firmware_version}"
 )
 '''.format(item.__dict__)
-      print(query)
-      # conn.execute(query)
+    print(query)
+    # conn.execute(query)

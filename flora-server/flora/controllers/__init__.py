@@ -1,3 +1,3 @@
-""" exporting flora"""
-
-from flora.controllers.devices_controller import * #noqa
+""" exporting flora.controllers"""
+from flora.controllers.base import * # noqa
+from flora.controllers.devices import * # noqa
