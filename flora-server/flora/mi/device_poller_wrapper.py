@@ -3,6 +3,7 @@ from config2.config import config
 from flora.models import HistoryItem
 from miflora.miflora_poller import MiFloraPoller
 
+
 class DevicePollerWrapper:
 
   def __init__(self, tag: str, poller: MiFloraPoller):
@@ -10,14 +11,14 @@ class DevicePollerWrapper:
     self._tag = tag
 
   def get_history_items(self) -> List[HistoryItem]:
-    history = self._poller.fetch_history()
     items = []
-    for item in history:
-      items.append(HistoryItem(tag=self._tag,
-                                entry=history[0],
-                                batery_level=self._poller.battery_level(),
-                                firmware_version=self._poller._firmware_version))
-    if config.device.poller.history.clear:
+    for item in self._poller.fetch_history():
+      items.append(HistoryItem(plant_tag=self._tag,
+                               address=self._poller._mac,
+                               entry=item,
+                               batery_level=self._poller.battery_level(),
+                               firmware_version=self._poller._firmware_version))
+    if config.miflora.poller.history.clear:
       self._poller.clear_history()
     return items
 

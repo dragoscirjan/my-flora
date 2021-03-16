@@ -2,11 +2,13 @@
 db:
   adapter: sqlite
   config:
-    dsn: ./my_flora.sqlite
+    database: ./my_flora.sqlite
 devices: []
 miflora:
   poller:
     adapter: bluepy
+    history:
+      clear: false
 plants: []
 stats:
   statsd:

@@ -2,11 +2,10 @@
 
 import sqlite3
 import unittest
-from flora.db import Base, Sqlite
-from flora.di import Container, DevicePollerAdapters
-from miflora.miflora_poller import MiFloraPoller
-from btlewrap import bluepy, pygatt
-
+from flora.db import Base as DbBase, Sqlite
+from flora.controllers import Base as ControllerBase, DevicesController
+from flora.di import Container
+from flora.routes import RouteDispatcher
 
 class DITestCase(unittest.TestCase):
   """`di` Test Case"""
@@ -14,54 +13,31 @@ class DITestCase(unittest.TestCase):
   def setUp(self) -> None:
     self.container = Container()
     self.container.config.from_dict({
+      'sqlite_or_none': 'sqlite',
       'db': {
-        'adapter': Sqlite,
         'config': {
           'database': 'my_flora.sqlite'
-        }
-      },
-      'miflora': {
-        'poller': {
-          'adapter': bluepy.BluepyBackend
         }
       }
     })
 
-
-  def test_miflora_device_poller(self):
-    """Testing `miflora_device_poller` to be initialized"""
-    self.assertIsInstance(self.container.miflora_device_poller('address'), MiFloraPoller)
-
-  def test_miflora_device_poller__address(self):
-    """Testing `miflora_device_poller` to be initialized with given address"""
-    self.assertEqual(self.container.miflora_device_poller('address')._mac, 'address')
-
-  def test_miflora_device_poller__bluepy(self):
-    """Testing `miflora_device_poller` to be initialized with given bt backend"""
-    self.assertIsInstance(self.container.miflora_device_poller('address')._bt_interface._backend, bluepy.BluepyBackend)
-
-  # TODO: make sure PyGatt is working as well
-  # def test_flora_device_poller__pygatt(self):
-  #   """Testing `miflora_device_poller` to be initialized with given bt backend"""
-  #   self.container.config.from_dict(
-  #     {
-  #       'device': {
-  #         'adapter': DevicePollerAdapters.pygatt
-  #       }
-  #     }
-  #   )
-  #   self.assertIsInstance(self.container.flora_device_poller('address')._bt_interface._backend, pygatt.PygattBackend)
-
-  def test_device_poller_wrapper(self):
-    """Testing `flora_device_poller` to be initialized"""
-    poller = self.container.device_poller_wrapper(tag='tag', poller__mac='address')
-    self.assertEqual(poller._tag, 'tag')
-    self.assertEqual(poller._poller._mac, 'address')
-    self.assertIsInstance(poller._poller._bt_interface._backend, bluepy.BluepyBackend)
-
   def test_db_adapter(self):
-    """Testing `miflora_device_poller` to be initialized"""
+    """Testing `db_adapter` to be initialized"""
     db_adapter = self.container.db_adapter()
-    # self.assertIsInstance(db_adapter, Base)
-    # self.assertIsInstance(db_adapter._conn, sqlite3.Connection)
+    self.assertIsInstance(db_adapter, DbBase)
+    self.assertIsInstance(db_adapter, Sqlite)
+    self.assertIsInstance(db_adapter._conn, sqlite3.Connection)
     self.assertEqual(True, True)
+
+  def test_devices_controller(self):
+    """Testing `devices_controller` to be initialized"""
+    devices_controller = self.container.devices_controller()
+    self.assertIsInstance(devices_controller, ControllerBase)
+    self.assertIsInstance(devices_controller, DevicesController)
+    self.assertIsInstance(devices_controller._db_adapter, Sqlite)
+
+  def test_route_dispatcher(self):
+    """Testing `route_dispatcher` to be initialized"""
+    route_dispatcher = self.container.route_dispatcher()
+    self.assertIsInstance(route_dispatcher, RouteDispatcher)
+    self.assertIsInstance(route_dispatcher._controllers['DevicesController'], DevicesController)

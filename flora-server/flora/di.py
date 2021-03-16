@@ -1,42 +1,30 @@
 from config2.config import config as file_config
 from dependency_injector import containers, providers
-from btlewrap import bluepy, pygatt
-from miflora.miflora_poller import MiFloraPoller
-from flora.db import Sqlite
+from flora.db import Base as DbBase, Sqlite
 from flora.controllers import DevicesController
-from flora.mi import DevicePollerWrapper
 from flora.routes import RouteDispatcher
+from typing import Type
 
 file_config.get()
 
-class DevicePollerAdapters:
-  bluepy = 'bluepy'
-  pygatt = 'pygatt'
-
-def device_poller_backend(adapter: str):
-  return bluepy.BluepyBackend if adapter == DevicePollerAdapters.bluepy else \
-          pygatt.PygattBackend if adapter == DevicePollerAdapters.pygatt else None
-
-def db_adapter(adapter: str):
-  return
+def db_adapter_callable(adapter: Type[DbBase] = None, config: dict = {}) -> DbBase:
+  print('adapter: ', adapter)
+  print('config: ', config)
+  return adapter(**config)
 
 class Container(containers.DeclarativeContainer):
 
   config = providers.Configuration()
 
-  miflora_device_poller = providers.Factory(
-    MiFloraPoller,
-    backend=config.miflora.poller.adapter
+  db_sqlite_adapter = providers.Factory(
+    Sqlite,
   )
+  db_sqlite_adapter.add_kwargs(config=config.db.config)
 
-  device_poller_wrapper = providers.Factory(
-    DevicePollerWrapper,
-    poller=miflora_device_poller
-  )
-
-  db_adapter = providers.Singleton(
-    config.db.adapter,
-    config=config.db.config,
+  db_adapter = providers.Selector(
+    config.sqlite_or_none,
+    sqlite=db_sqlite_adapter,
+    none=providers.Factory(DbBase)
   )
 
   devices_controller = providers.Singleton(
@@ -46,27 +34,18 @@ class Container(containers.DeclarativeContainer):
 
   route_dispatcher = providers.Singleton(
     RouteDispatcher,
-    controllers={
-      'DevicesController': devices_controller
-    }
+    DevicesController=devices_controller
   )
 
 
 db_config = file_config.db
-bt_adapter = file_config.miflora.poller.adapter
 
 container = Container()
 container.config.from_dict({
+  'sqlite_or_none': db_config.adapter,
   'db': {
-    'adapter': Sqlite if not db_config or not db_config.adapter or db_config.adapter == 'sqlite' else None,
     'config': {
       'database': 'my_flora.sqlite'
     } if not db_config or not db_config.config else db_config.config
-  },
-  'miflora': {
-    'poller': {
-      'adapter': bluepy.BluepyBackend if not bt_adapter or bt_adapter.lower() == 'bluepy'\
-                  else pygatt.PygattBackend if bt_adapter.lower() == 'pygatt' else None
-    }
   }
 })

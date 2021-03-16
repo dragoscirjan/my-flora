@@ -1,12 +1,13 @@
 import cherrypy
 from config2.config import config
-from flora.db import Base as DbBase
+from dependency_injector import providers
 from flora.controllers import Base
+from flora.mi import container as mi_container
 from flora.routes.registry import register_get_route, register_put_route
 
 class DevicesController(Base):
 
-  def __init__(self, db_adapter: DbBase):
+  def __init__(self, db_adapter: providers.Singleton):
     self._db_adapter = db_adapter
 
   @cherrypy.tools.json_out()
@@ -32,14 +33,17 @@ class DevicesController(Base):
   @register_put_route(name='device_interrogate', route='/v1/devices/{address}',
                       action='put_device_details', controller='DevicesController')
   def put_device_details(self, address: str) -> dict:
-    pass
-    # device = self.get_device_details(address=address)
-    # device['newHistoryItems'] = []
-    #
-    # history_items = container.device_poller_wrapper(tag=device['tag'],
-    #                                                 poller__mac=device['address']).get_history_items()
-    # for item in history_items:
-    #   self._db_adapter.add_history_item(item)
-    #   device['newHistoryItems'].append(item.__dict__)
-    #
-    # return device
+    device = self.get_device_details(address=address)
+    device['newHistoryItems'] = []
+
+    print('db_adapter:', self._db_adapter)
+
+    latest_item = self._db_adapter.get_latest_history_item(address=address)
+
+    poller = mi_container.device_poller_wrapper(tag=device['tag'], poller__mac=device['address'])
+    for item in poller.get_history_items():
+      if latest_item is None or latest_item['device_time'] < item['device_time']:
+        self._db_adapter.add_history_item(item=item)
+      device['newHistoryItems'].append(item)
+
+    return device
