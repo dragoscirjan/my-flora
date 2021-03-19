@@ -23,6 +23,7 @@ class DevicesController(Base):
     for device in config.devices:
       if device['address'] == address:
         found = device
+        found['history_items'] = self._db_adapter.get_history_items(address)
 
     if found is None:
       raise cherrypy.HTTPError(404, 'Invalid device with mac address: {}'.format(address))
@@ -34,7 +35,7 @@ class DevicesController(Base):
                       action='put_device_details', controller='DevicesController')
   def put_device_details(self, address: str) -> dict:
     device = self.get_device_details(address=address)
-    device['newHistoryItems'] = []
+    device['new_history_items'] = []
 
     print('db_adapter:', self._db_adapter)
 
@@ -44,6 +45,6 @@ class DevicesController(Base):
     for item in poller.get_history_items():
       if latest_item is None or latest_item['device_time'] < item['device_time']:
         self._db_adapter.add_history_item(item=item)
-      device['newHistoryItems'].append(item)
+      device['new_history_items'].append(item)
 
     return device
