@@ -2,7 +2,7 @@
 
 pdoc3
 
-pytest
-pytest-cov
+#pytest
+#pytest-cov
 coverage
 twine
