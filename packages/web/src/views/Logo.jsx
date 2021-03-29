@@ -24,6 +24,9 @@ export default function Logo({ classes = {}, title = "My Flora" }) {
   );
 }
 
+/**
+ * @link https://freesvgdesigns.com/floral-elements-92/
+ */
 const MyFloraLogo = ({ displayName = "MyFloraLogo", ref, ...props }) => (
   <SvgIcon
     data-testid={`${displayName}Icon`}
