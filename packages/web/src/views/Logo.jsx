@@ -1,4 +1,4 @@
-import { createSvgIcon, SvgIcon } from "@material-ui/core";
+import { SvgIcon } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as React from "react";
 
