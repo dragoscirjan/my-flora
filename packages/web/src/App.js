@@ -4,13 +4,16 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 
 import "./App.css";
+import '@fontsource/roboto';
 
 import Logo from "./views/Logo";
 import Charts from "./components/pages/Charts";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh'
   },
 }));
 
