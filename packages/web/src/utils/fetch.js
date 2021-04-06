@@ -4,4 +4,4 @@ import config from "../config";
 export const fetchDevices = () =>
   fetch(`${config.endpoint}${config.paths.devices}`)
     .then((response) => response.text())
-    .then(json5);
+    .then(json5.parse);
