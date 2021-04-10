@@ -1,0 +1,20 @@
+bluepy
+# miflora requires 0.0.10
+btlewrap==0.0.10
+cherrypy
+cherrypy_cors
+config2
+colorlog
+dependency-injector
+# loguru
+miflora
+# config2 requires >= 0.1.4, but 2.0.0 doesn't work on ubuntu ?...
+mybad==0.1.4
+prometheus-client
+pygatt
+pyyaml
+routes
+setupextras
+simplejson
+# sqlite3
+statsd
