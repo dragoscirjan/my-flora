@@ -82,11 +82,12 @@ class Base(Controller):
                                             mac=data['mac'],
                                             poller=MiFloraPoller(mac=data['mac'], backend=backend))
 
-        self.app.log.info(poller)
+        self.app.log.info(poller.__dict__)
+        self.app.log.info(poller._poller.__dict__)
 
-        history_items = poller.get_history_items()
-
-        for item in history_items:
-            self.app.log.info(item)
+        # history_items = poller.get_history_items()
+        #
+        # for item in history_items:
+        #     self.app.log.info(item)
 
         # self.app.render(data, 'command1.jinja2')
