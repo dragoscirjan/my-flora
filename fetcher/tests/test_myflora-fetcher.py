@@ -3,7 +3,7 @@ from pytest import raises
 from myflora-fetcher.main import MyFloraTest
 
 def test_myflora-fetcher():
-    # test myflora-fetcher without any subcommands or arguments
+    # test myflora_fetcher without any subcommands or arguments
     with MyFloraTest() as app:
         app.run()
         assert app.exit_code == 0

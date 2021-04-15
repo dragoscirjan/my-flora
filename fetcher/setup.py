@@ -1,6 +1,6 @@
 
 from setuptools import setup, find_packages
-from myflora-fetcher.core.version import get_version
+from myflora_fetcher.core.version import get_version
 
 VERSION = get_version()
 
@@ -9,7 +9,7 @@ LONG_DESCRIPTION = f.read()
 f.close()
 
 setup(
-    name='myflora-fetcher',
+    name='myflora_fetcher',
     version=VERSION,
     description='Query Xiaomi Flora devices & store data to designated services',
     long_description=LONG_DESCRIPTION,
@@ -19,10 +19,10 @@ setup(
     url='https://github.com/dragoscirjan/myflora',
     license='MIT',
     packages=find_packages(exclude=['ez_setup', 'tests*']),
-    package_data={'myflora-fetcher': ['templates/*']},
+    package_data={'myflora_fetcher': ['templates/*']},
     include_package_data=True,
     entry_points="""
         [console_scripts]
-        myflora-fetcher = myflora-fetcher.main:main
+        myflora_fetcher = myflora_fetcher.main:main
     """,
 )

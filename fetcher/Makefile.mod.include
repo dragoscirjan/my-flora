@@ -1,0 +1,96 @@
+include Makefile.include
+
+## Add your make instructions here
+
+PROJECT=flora
+PY = python
+PIP = pip
+
+ifneq (,$(wildcard ./Makefile.py-version.include))
+include Makefile.py-version.include
+endif
+
+PIP_FLAGS=--trusted-host pypi.org --trusted-host pypi.python.org
+PIP_INSTALL=$(PIP) install $(PIP_FLAGS)
+
+ifeq ($(OSFLAG),WIN32)
+LOCAL_ENV=.\env\Scripts
+else
+LOCAL_ENV=./env/bin
+endif
+LOCAL_PY=$(LOCAL_ENV)/python
+LOCAL_PIP=$(LOCAL_ENV)/pip
+LOCAL_PIP_INSTALL=$(LOCAL_PIP) install $(PIP_FLAGS)
+
+
+configure: venv ## Configure your project for development (like venv but with git hooks)
+	$(LOCAL_PIP_INSTALL) pre-commit
+
+CLEAN_FULL=
+clean: clean-$(SHELL_IS) ## Clean all dist/temp folders
+	find . -name '*.py[co]' -delete
+	find . -type d -name "__pycache__" -exec rm -rf {} \;
+	rm -rf .coverage .pytest_cache coverage-report dist $(PROJECT).egg-info
+
+
+docs: ## Generate documentation for the Project
+	$(LOCAL_ENV)/pdoc --html -o docs flora
+
+
+# RELEASE_OPTIONS = -Patch -Dry
+# RELEASE_PUBLISH =
+# release: release-$(SHELL_IS) ## Publish code & mark for release
+# 	rm -rf dist/*
+# 	$(PY) setup.py sdist
+# 	$(PY) setup.py bdist_wheel
+# ifneq ($(RELEASE_PUBLISH),)
+# 	twine upload dist/*
+# endif
+
+# release-bash:
+# 	bash ./.scripts/release-tag.sh $(RELEASE_OPTIONS)
+
+# release-powershell:
+# 	$(POWERSHELL) -File ./.scripts/release-tag.ps1 $(RELEASE_OPTIONS)
+
+
+COV_HTML=coverage-report
+TEST_PATH=*_test.py
+TEST_LIB=unittest
+# TEST_LIB=pytest
+test: ## Run Tests
+	python -m pytest \
+		-v \
+		--cov=myflora-fetcher \
+		--cov-report=term \
+		--cov-report=html:coverage-report \
+		tests/
+
+
+VIRTUALENV_ARGS =
+venv: venv-clean virtualenv ## Create a Virtual Environment
+	$(PY) -m virtualenv $(VIRTUALENV_ARGS) --prompt '|> $(PROJECT) <| ' env
+	$(LOCAL_PIP) install -r requirements-dev.txt
+	$(LOCAL_PY) setup.py develop
+	@echo =====================================================================
+	@echo = VirtualENV Setup Complete. Now run: source env/bin/activate       =
+	@echo =====================================================================
+
+
+venv-clean:
+	rm -rf ./env
+
+
+virtualenv:
+	$(PIP_INSTALL) virtualenv
+
+docker: clean
+	docker build -t myflora-fetcher:latest .
+
+dist: clean
+	rm -rf dist/*
+	python setup.py sdist
+	python setup.py bdist_wheel
+
+dist-upload:
+	twine upload dist/*

@@ -1,4 +1,11 @@
+bluepy
+# miflora requires 0.0.10
+btlewrap==0.0.10
 cement==3.0.4
-jinja2
-pyyaml
 colorlog
+jinja2
+miflora
+prometheus-client
+pygatt
+pyyaml
+statsd

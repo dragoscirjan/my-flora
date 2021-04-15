@@ -5,15 +5,15 @@ from .core.exc import MyFloraError
 from .controllers.base import Base
 
 # configuration defaults
-CONFIG = init_defaults('myflora-fetcher')
-CONFIG['myflora-fetcher']['foo'] = 'bar'
+CONFIG = init_defaults('myflora_fetcher')
+CONFIG['myflora_fetcher']['foo'] = 'bar'
 
 
 class MyFlora(App):
     """My Flora Fetch Tool primary application."""
 
     class Meta:
-        label = 'myflora-fetcher'
+        label = 'myflora_fetcher'
 
         # configuration defaults
         config_defaults = CONFIG
@@ -50,7 +50,7 @@ class MyFloraTest(TestApp,MyFlora):
     """A sub-class of MyFlora that is better suited for testing."""
 
     class Meta:
-        label = 'myflora-fetcher'
+        label = 'myflora_fetcher'
 
 
 def main():
