@@ -17,18 +17,18 @@
     },
     {
       address: "C4:7C:8D:6B:BD:EC",
-      label: "Camelia 1",
+      label: "Camelia Japonica",
       tag: "Camellia_Japonica",
     },
     {
       address: "C4:7C:8D:6B:C2:AE",
-      label: "??????",
-      tag: "Aeschynanthus_Lobbianus",
+      label: "Ficus Benjamina",
+      tag: "Ficus_Benjamina",
     },
     {
       address: "C4:7C:8D:6B:C0:24",
-      label: "??????",
-      tag: "Aeschynanthus_Lobbianus",
+      label: "Aeoninm Arboreum",
+      tag: "Aeoninm_Arboreum",
     },
   ],
 }

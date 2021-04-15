@@ -58,6 +58,10 @@ class Base(Controller):
               'action': 'store_true',
               'default': False,
               'dest': 'clear'}),
+            (['--tag'],
+             {'help': 'plant tag',
+              'action': 'store',
+              'dest': 'tag'}),
         ],
     )
     def fetch(self):
@@ -67,7 +71,8 @@ class Base(Controller):
             'mac': '',
             'type': PollerAdapters.mi,
             'backend': BluetoothAdapters.bluepy,
-            'clear': False
+            'clear': False,
+            'tag': 'my_flora_plant',
         }
 
         args = self.app.pargs.__dict__
@@ -79,15 +84,15 @@ class Base(Controller):
 
         backend = BluepyBackend if data['backend'] == BluetoothAdapters.bluepy else PygattBackend
         poller = PollerFactory.get_instance(MiPoller,
-                                            mac=data['mac'],
+                                            tag=data['tag'],
                                             poller=MiFloraPoller(mac=data['mac'], backend=backend))
 
         self.app.log.info(poller.__dict__)
         self.app.log.info(poller._poller.__dict__)
 
-        # history_items = poller.get_history_items()
-        #
-        # for item in history_items:
-        #     self.app.log.info(item)
+        history_items = poller.get_history_items(data['clear'])
+
+        for item in history_items:
+            self.app.log.info(item)
 
         # self.app.render(data, 'command1.jinja2')

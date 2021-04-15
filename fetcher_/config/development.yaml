@@ -1,57 +1,57 @@
 ---
 plants:
-  - species: 'Aeoninm Arboreum'
-    tag: 'Aeoninm_Arboreum'
-    moisture: [ 7, 50 ]
-    fertility: [ 300, 1000 ]
-    sunlight: [ 3000, 80000 ]
-    temperature: [ 5, 35 ]
-  - species: 'Aeschynanthus Lobbianus'
-    tag: 'Aeschynanthus_Lobbianus'
-    moisture: [ 15, 60 ]
-    fertility: [ 350, 2000 ]
-    sunlight: [ 2000, 20000 ]
-    temperature: [ 6, 25 ]
-  - species: 'Camellia Japonica'
-    tag: 'Camellia_Japonica'
-    moisture: [ 15, 60 ]
-    fertility: [ 350, 2000 ]
-    sunlight: [ 2000, 25000 ]
-    temperature: [ 10, 32 ]
-  - species: 'Echeveria Runyonii'
-    tag: 'Echeveria_Runyonii'
-    moisture: [ 7, 50 ]
-    fertility: [ 300, 1000 ]
-    sunlight: [ 3000, 90000 ]
-    temperature: [ 5, 35 ]
-  - species: 'Lime Ficus Benjamina'
-    tag: 'Ficus_Benjamina'
-    moisture: [ 20, 60 ]
-    fertility: [ 350, 2000 ]
-    sunlight: [ 25000, 35000 ]
-    temperature: [ 8, 32 ]
-  - species: 'Stephanotis Floribunda'
-    tag: 'Stephanotis_Floribunda'
-    moisture: [ 15, 60 ]
-    fertility: [ 350, 2000 ]
-    sunlight: [ 37000, 35000 ]
-    temperature: [ 1, 32 ]
+  - species: "Aeoninm Arboreum"
+    tag: "Aeoninm_Arboreum"
+    moisture: [7, 50]
+    fertility: [300, 1000]
+    sunlight: [3000, 80000]
+    temperature: [5, 35]
+  - species: "Aeschynanthus Lobbianus"
+    tag: "Aeschynanthus_Lobbianus"
+    moisture: [15, 60]
+    fertility: [350, 2000]
+    sunlight: [2000, 20000]
+    temperature: [6, 25]
+  - species: "Camellia Japonica"
+    tag: "Camellia_Japonica"
+    moisture: [15, 60]
+    fertility: [350, 2000]
+    sunlight: [2000, 25000]
+    temperature: [10, 32]
+  - species: "Echeveria Runyonii"
+    tag: "Echeveria_Runyonii"
+    moisture: [7, 50]
+    fertility: [300, 1000]
+    sunlight: [3000, 90000]
+    temperature: [5, 35]
+  - species: "Lime Ficus Benjamina"
+    tag: "Ficus_Benjamina"
+    moisture: [20, 60]
+    fertility: [350, 2000]
+    sunlight: [25000, 35000]
+    temperature: [8, 32]
+  - species: "Stephanotis Floribunda"
+    tag: "Stephanotis_Floribunda"
+    moisture: [15, 60]
+    fertility: [350, 2000]
+    sunlight: [37000, 35000]
+    temperature: [1, 32]
 devices:
-  - address: 'C4:7C:8D:6B:C0:0E'
-    label: 'Stephanotis Floribunda'
-    tag: 'Stephanotis_Floribunda'
-  - address: 'C4:7C:8D:6B:BF:F7'
-    label: 'Lipstick Plant'
-    tag: 'Aeschynanthus_Lobbianus'
-  - address: 'C4:7C:8D:6B:B6:B7'
-    label: 'Topsy Truvy'
-    tag: 'Echeveria_Runyonii'
-  - address: 'C4:7C:8D:6B:BD:EC'
-    label: 'Camelia 1'
-    tag: 'Camellia_Japonica'
-  - address: 'C4:7C:8D:6B:C2:AE'
-    label: '??????'
-    tag: 'Aeschynanthus_Lobbianus'
-  - address: 'C4:7C:8D:6B:C0:24'
-    label: '??????'
-    tag: 'Aeschynanthus_Lobbianus'
+  - address: "C4:7C:8D:6B:C0:0E"
+    label: "Stephanotis Floribunda"
+    tag: "Stephanotis_Floribunda"
+  - address: "C4:7C:8D:6B:BF:F7"
+    label: "Lipstick Plant"
+    tag: "Aeschynanthus_Lobbianus"
+  - address: "C4:7C:8D:6B:B6:B7"
+    label: "Topsy Truvy"
+    tag: "Echeveria_Runyonii"
+  - address: "C4:7C:8D:6B:BD:EC"
+    label: "Camelia 1"
+    tag: "Camellia_Japonica"
+  - address: "C4:7C:8D:6B:C2:AE"
+    label: "??????"
+    tag: "Aeschynanthus_Lobbianus"
+  - address: "C4:7C:8D:6B:C0:24"
+    label: "??????"
+    tag: "Aeschynanthus_Lobbianus"

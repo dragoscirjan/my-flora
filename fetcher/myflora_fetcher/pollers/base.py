@@ -4,8 +4,8 @@ from typing import List, Type
 
 class BasePoller:
 
-    def __init__(self, mac: str, **kwargs):
-        self._mac = mac
+    def __init__(self, tag: str, **kwargs):
+        self._tag = tag
         self._kwargs = kwargs
 
     @abc.abstractmethod
@@ -18,5 +18,5 @@ class BasePoller:
 class PollerFactory:
 
     @staticmethod
-    def get_instance(klass: Type[BasePoller], mac: str, **kwargs) -> BasePoller:
-        return klass(mac, **kwargs)
+    def get_instance(klass: Type[BasePoller], tag: str, **kwargs) -> BasePoller:
+        return klass(tag, **kwargs)
