@@ -89,6 +89,7 @@ class Base(Controller):
 
         self.app.log.info(data)
 
+        history_items = []
         for x in range(data['retry']):
           try:
             backend = BluepyBackend if data['backend'] == BluetoothAdapters.bluepy else PygattBackend
@@ -101,7 +102,7 @@ class Base(Controller):
             break
           except btlewrap.base.BluetoothBackendException:
             self.app.log.warning('Could not read device {}. Left attempts {}'.format(data['mac'], data['retry'] - x - 1))
-            if x == data['retry']:
+            if x == data['retry'] - 1:
               self.app.log.fatal('Could not read device {}. Retry attempts exhausted.'.format(data['mac']))
               exit(1)
 
