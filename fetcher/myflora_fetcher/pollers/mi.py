@@ -11,10 +11,8 @@ class MiPoller(BasePoller):
     self._poller = poller
 
   def get_history_items(self, clear: bool = False) -> List[HistoryItem]:
-    print(self._poller)
     items = []
     for item in self._poller.fetch_history():
-      print(item)
       items.append(HistoryItem(plant_tag=self._tag,
                                address=self._poller._mac,
                                entry=item,

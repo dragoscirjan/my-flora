@@ -3,6 +3,10 @@
 ## Installation
 
 ```
+sudo apt-get install -y bluez build-essential cargo libffi-dev libglib2.0-dev libssl-dev python3-dev
+
+# see https://cryptography.io/en/latest/installation/ and https://github.com/IanHarvey/bluepy for other distro
+
 $ pip install -r requirements.txt
 
 $ pip install setup.py

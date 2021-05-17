@@ -1,3 +1,4 @@
+import btlewrap.base
 from cement import Controller, ex
 from cement.utils.version import get_version_banner
 from ..core.version import get_version
@@ -58,6 +59,11 @@ class Base(Controller):
               'action': 'store_true',
               'default': False,
               'dest': 'clear'}),
+            (['-r', '--retry'],
+             {'help': 'retry a number of times',
+              'action': 'store',
+              'default': 10,
+              'dest': 'retry'}),
             (['--tag'],
              {'help': 'plant tag',
               'action': 'store',
@@ -72,6 +78,7 @@ class Base(Controller):
             'type': PollerAdapters.mi,
             'backend': BluetoothAdapters.bluepy,
             'clear': False,
+            'retry': 10,
             'tag': 'my_flora_plant',
         }
 
@@ -82,17 +89,23 @@ class Base(Controller):
 
         self.app.log.info(data)
 
-        backend = BluepyBackend if data['backend'] == BluetoothAdapters.bluepy else PygattBackend
-        poller = PollerFactory.get_instance(MiPoller,
-                                            tag=data['tag'],
-                                            poller=MiFloraPoller(mac=data['mac'], backend=backend))
-
-        self.app.log.info(poller.__dict__)
-        self.app.log.info(poller._poller.__dict__)
-
-        history_items = poller.get_history_items(data['clear'])
+        for x in range(data['retry']):
+          try:
+            backend = BluepyBackend if data['backend'] == BluetoothAdapters.bluepy else PygattBackend
+            poller = PollerFactory.get_instance(MiPoller,
+                                                tag=data['tag'],
+                                                poller=MiFloraPoller(mac=data['mac'], backend=backend))
+            self.app.log.info(poller.__dict__)
+            self.app.log.info(poller._poller.__dict__)
+            history_items = poller.get_history_items(data['clear'])
+            break
+          except btlewrap.base.BluetoothBackendException:
+            self.app.log.warning('Could not read device {}. Left attempts {}'.format(data['mac'], data['retry'] - x - 1))
+            if x == data['retry']:
+              self.app.log.fatal('Could not read device {}. Retry attempts exhausted.'.format(data['mac']))
+              exit(1)
 
         for item in history_items:
-            self.app.log.info(item)
+          self.app.log.info(item)
 
         # self.app.render(data, 'command1.jinja2')

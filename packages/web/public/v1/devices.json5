@@ -14,16 +14,19 @@
       address: "C4:7C:8D:6B:B6:B7",
       label: "Topsy Truvy",
       tag: "Echeveria_Runyonii",
+      status: "unreachable yet",
     },
     {
       address: "C4:7C:8D:6B:BD:EC",
       label: "Camelia Japonica",
       tag: "Camellia_Japonica",
+      status: "unreachable yet",
     },
     {
       address: "C4:7C:8D:6B:C2:AE",
       label: "Ficus Benjamina",
       tag: "Ficus_Benjamina",
+      status: "unreachable yet",
     },
     {
       address: "C4:7C:8D:6B:C0:24",
